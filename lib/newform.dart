@@ -37,6 +37,7 @@ class _BookDetailsState extends State<BookDetails> {
     }
   }
 
+  // status color update
   Color getStageColor(int? stage) {
     switch (stage) {
       case 1:
