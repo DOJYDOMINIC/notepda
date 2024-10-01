@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
@@ -37,6 +36,20 @@ class _BookDetailsState extends State<BookDetails> {
         return "Unknown Stage";
     }
   }
+
+  Color getStageColor(int? stage) {
+    switch (stage) {
+      case 1:
+        return Color.fromRGBO(255, 190, 5, 1); // Ongoing
+      case 2:
+        return Color.fromRGBO(141, 255, 159, 1); // Complete
+      case 3:
+        return Color.fromRGBO(236, 81, 81, 1); // New Update
+      default:
+        return Colors.red; // Unknown Stage
+    }
+  }
+
 
   Future<void> fetchBookDetails() async {
     try {
@@ -192,9 +205,9 @@ class _BookDetailsState extends State<BookDetails> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        _buildBookImage(jsonData.bookDetailData),
+                        _buildBookImage(jsonData.bookDetailData),//cover image
                         const SizedBox(height: 34),
-                        _buildStatsRow( jsonData.bookDetailData),
+                        _buildStatsRow( jsonData.bookDetailData),//row reads,rating,chaptres,pages
                         const SizedBox(height: 16),
                         _buildDividerRow(jsonData.bookDetailData.categories),
                         const SizedBox(height: 16),
@@ -299,7 +312,7 @@ class _BookDetailsState extends State<BookDetails> {
       width: 79,
       height: 23,
       decoration: BoxDecoration(
-        color:   Color.fromRGBO(141, 255, 159, 1),
+        color: getStageColor(jsonData.bookDetailData.status) ,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
@@ -386,8 +399,7 @@ class _BookDetailsState extends State<BookDetails> {
 
     for (int i = 0; i < categories.length; i++) {
       // Add each category's widget
-      categoryWidgets.add(_buildDividerData(
-          categories[i].categoryIcon, categories[i].categoryName));
+      categoryWidgets.add(_buildDividerData(categories[i].categoryIcon, categories[i].categoryName));
 
       // Add a vertical divider after each category, except the last one
       if (i < categories.length - 1) {

@@ -18,10 +18,10 @@ com.example.notpdadata.app-core-1.13.1-16 /Users/dojydominic/.gradle/caches/tran
 com.example.notpdadata.app-lifecycle-runtime-2.7.0-17 /Users/dojydominic/.gradle/caches/transforms-3/c8996eb6ce8efabee1883fe1486006c9/transformed/lifecycle-runtime-2.7.0/res
 com.example.notpdadata.app-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 /Users/dojydominic/.gradle/caches/transforms-3/ca2eed4266fd24517e583e6618aa3924/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/res
 com.example.notpdadata.app-jetified-tracing-1.2.0-19 /Users/dojydominic/.gradle/caches/transforms-3/fee79d0d8ef3af5dbc14ef6d22d028cf/transformed/jetified-tracing-1.2.0/res
-com.example.notpdadata.app-debug-20 /Users/dojydominic/projects/notpdadata/android/app/src/debug/res
-com.example.notpdadata.app-main-21 /Users/dojydominic/projects/notpdadata/android/app/src/main/res
-com.example.notpdadata.app-pngs-22 /Users/dojydominic/projects/notpdadata/build/app/generated/res/pngs/debug
-com.example.notpdadata.app-resValues-23 /Users/dojydominic/projects/notpdadata/build/app/generated/res/resValues/debug
-com.example.notpdadata.app-packageDebugResources-24 /Users/dojydominic/projects/notpdadata/build/app/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.example.notpdadata.app-packageDebugResources-25 /Users/dojydominic/projects/notpdadata/build/app/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.example.notpdadata.app-merged_res-26 /Users/dojydominic/projects/notpdadata/build/app/intermediates/merged_res/debug
+com.example.notpdadata.app-debug-20 /Users/dojydominic/projects/notepda/notepda/android/app/src/debug/res
+com.example.notpdadata.app-main-21 /Users/dojydominic/projects/notepda/notepda/android/app/src/main/res
+com.example.notpdadata.app-pngs-22 /Users/dojydominic/projects/notepda/notepda/build/app/generated/res/pngs/debug
+com.example.notpdadata.app-resValues-23 /Users/dojydominic/projects/notepda/notepda/build/app/generated/res/resValues/debug
+com.example.notpdadata.app-packageDebugResources-24 /Users/dojydominic/projects/notepda/notepda/build/app/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.notpdadata.app-packageDebugResources-25 /Users/dojydominic/projects/notepda/notepda/build/app/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.notpdadata.app-merged_res-26 /Users/dojydominic/projects/notepda/notepda/build/app/intermediates/merged_res/debug
