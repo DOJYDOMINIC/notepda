@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:http/http.dart' as http;
@@ -20,9 +19,6 @@ class _BookDetailsState extends State<BookDetails> {
     super.initState();
     fetchBookDetails();
   }
-
-
-
 
   String getStageDescription(int? stage) {
     switch (stage) {
@@ -51,25 +47,21 @@ class _BookDetailsState extends State<BookDetails> {
     }
   }
 
-
   Future<void> fetchBookDetails() async {
     try {
-      final url = Uri.parse("https://app.notespaediaapp.com/api/books/books/167");
+      final url =
+          Uri.parse("https://app.notespaediaapp.com/api/books/books/167");
 
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
         setState(() {
-          jsonData = bookDetailsModelFromJson(
-              response.body); // Directly use response.body
-          isLoading = false; // Set loading to false once data is fetched
+          jsonData = bookDetailsModelFromJson(response.body);
+          isLoading = false;
         });
 
         print(jsonData.bookDetailData.bookName);
-        // If using GetX for state management, you can assign your data here
-        // bookDetailData.assign(jsonData.bookDetailData);
       } else {
-        // Handle error response here
         print('Failed to fetch book details: ${response.statusCode}');
       }
     } catch (error) {
@@ -79,7 +71,6 @@ class _BookDetailsState extends State<BookDetails> {
   }
 
   int? selectedIndex = 0;
-
 
   double _getTextWidth(String text, TextStyle style) {
     final textPainter = TextPainter(
@@ -101,7 +92,6 @@ class _BookDetailsState extends State<BookDetails> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
@@ -151,7 +141,8 @@ class _BookDetailsState extends State<BookDetails> {
                       ),
                       Text(
                         "₹${jsonData.bookDetailData.hardCopyNewPrice?.toInt()}",
-                        style: TextStyle(fontSize: 24),
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -206,19 +197,23 @@ class _BookDetailsState extends State<BookDetails> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        _buildBookImage(jsonData.bookDetailData),//cover image
+                        _buildBookImage(jsonData.bookDetailData),
+                        //cover image
                         const SizedBox(height: 34),
-                        _buildStatsRow( jsonData.bookDetailData),//row reads,rating,chaptres,pages
+                        _buildStatsRow(jsonData.bookDetailData),
+                        //row reads,rating,chaptres,pages
                         const SizedBox(height: 16),
-                        _buildDividerRow(jsonData.bookDetailData.categories),
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: _buildDividerRow(jsonData.bookDetailData.categories)),
                         const SizedBox(height: 16),
                         _buildDescription(
                             "With Chrome profiles you can separate all of your Chrome stuff. Create profiles for friends and family, or split between work and fun.With Chrome profiles you can separate all of your Chrome stuff. Create profiles for friends and family, or split between work and fun.With Chrome profiles you can separate all of your Chrome stuff. Create profiles for friends and family, or split between work and fun."),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 24),
                         _buildHorizontalMenu(jsonData.bookDetailData.chapters),
                         const SizedBox(height: 16),
                         _buildDownloadSection(),
-                        ChapterListView(data:jsonData.bookDetailData)
+                        ChapterListView(data: jsonData.bookDetailData)
                       ],
                     ),
                   ),
@@ -227,7 +222,6 @@ class _BookDetailsState extends State<BookDetails> {
             ),
     );
   }
-
 
   Widget _buildBookImage(BookDetailData data) {
     return Center(
@@ -272,9 +266,7 @@ class _BookDetailsState extends State<BookDetails> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: _buildBookInfo(
-                data.bookName,
-                data.parentCategory.toString(),
+            child: _buildBookInfo(data.bookName, data.parentCategory.toString(),
                 getStageDescription(data.status)),
           ),
         ],
@@ -313,7 +305,7 @@ class _BookDetailsState extends State<BookDetails> {
       width: 79,
       height: 23,
       decoration: BoxDecoration(
-        color: getStageColor(jsonData.bookDetailData.status) ,
+        color: getStageColor(jsonData.bookDetailData.status),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
@@ -353,11 +345,9 @@ class _BookDetailsState extends State<BookDetails> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _buildStatCard(
-            data.bookReadCount.toString(), 'Reads'),
+        _buildStatCard(data.bookReadCount.toString(), 'Reads'),
         _buildStatCard(data.bookRating.toString(), 'Rating'),
-        _buildStatCard(
-            data.totalChapters.toString(), 'Chapters'),
+        _buildStatCard(data.totalChapters.toString(), 'Chapters'),
         _buildStatCard(data.totalPages.toString(), 'Pages'),
       ],
     );
@@ -399,16 +389,30 @@ class _BookDetailsState extends State<BookDetails> {
     List<Widget> categoryWidgets = [];
 
     for (int i = 0; i < categories.length; i++) {
-      // Add each category's widget
-      categoryWidgets.add(_buildDividerData(categories[i].categoryIcon, categories[i].categoryName));
+      // Wrap the category widget in a SizedBox to set fixed dimensions
+      categoryWidgets.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 24),
+          child: SizedBox(
+            width: 88, // Set the width to 88 pixels
+            height: 48, // Set the height to 44 pixels
+            child: _buildDividerData(
+              categories[i].categoryIcon,
+              categories[i].categoryName,
+            ),
+          ),
+        ),
+      );
 
       // Add a vertical divider after each category, except the last one
       if (i < categories.length - 1) {
-        categoryWidgets.add(Container(
-          color: Colors.grey,
-          width: 1,
-          height: 29,
-        ));
+        categoryWidgets.add(
+          Container(
+            color: Colors.black.withOpacity(.5),
+            width: .5,
+            height: 29,
+          ),
+        );
       }
     }
 
@@ -418,20 +422,21 @@ class _BookDetailsState extends State<BookDetails> {
     );
   }
 
+
 // Category item widget
   Widget _buildDividerData(String iconUrl, String categoryName) {
     return Column(
       children: [
         Image.network(
           iconUrl,
-          width: 40, // Adjust as per your requirement
-          height: 40,
+          width: 24, // Adjust as per your requirement
+          height: 24,
           fit: BoxFit.contain,
         ),
         SizedBox(height: 5),
         Text(
           categoryName,
-          style: TextStyle(fontSize: 12),
+          style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -445,7 +450,15 @@ class _BookDetailsState extends State<BookDetails> {
       colorClickableText: Colors.pink,
       trimCollapsedText: ' Read more',
       trimExpandedText: ' Show Less',
-      moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      moreStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(141, 255, 159, 1)),
+      // Style for 'Read more'
+      lessStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(141, 255, 159, 1)), // Style for 'Show less'
     );
   }
 
@@ -551,6 +564,7 @@ class _BookDetailsState extends State<BookDetails> {
     );
   }
 }
+
 class ChapterListView extends StatelessWidget {
   final BookDetailData data;
 
@@ -583,7 +597,7 @@ class ChapterListView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: List.generate(
                             10,
-                                (index) => Padding(
+                            (index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1),
                               child: Container(
                                 height: 6,
@@ -631,15 +645,19 @@ class ChapterListView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(chapters.chapterName),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Row(
                                               children: [
@@ -659,7 +677,9 @@ class ChapterListView extends StatelessWidget {
                                               ],
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                               child: Container(
                                                 height: 10,
                                                 color: Colors.grey,
@@ -699,4 +719,3 @@ class ChapterListView extends StatelessWidget {
     );
   }
 }
-
